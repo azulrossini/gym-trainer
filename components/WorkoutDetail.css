@@ -1,0 +1,19 @@
+.workout-detail-container {
+  min-height: 100vh;
+}
+
+.routine-column {
+  transition: all 0.3s ease;
+}
+
+.routine-column:hover {
+  transform: translateY(-2px);
+}
+
+.exercise-item {
+  transition: background-color 0.2s ease;
+}
+
+.exercise-item:hover {
+  background-color: rgba(0, 0, 0, 0.02);
+}
