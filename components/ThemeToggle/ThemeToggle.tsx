@@ -9,13 +9,22 @@ export default function ThemeToggle() {
   const [theme, setTheme] = useAtom(themeAtom);
 
   useEffect(() => {
-    // Apply theme to document
+    // Apply theme to document on mount and when it changes
     if (theme === 'dark') {
       document.documentElement.classList.add('dark');
     } else {
       document.documentElement.classList.remove('dark');
     }
   }, [theme]);
+
+  // Apply dark mode on initial load (before hydration)
+  useEffect(() => {
+    // Check if there's a stored preference, otherwise default to dark
+    const storedTheme = localStorage.getItem('theme');
+    if (!storedTheme || storedTheme === '"dark"') {
+      document.documentElement.classList.add('dark');
+    }
+  }, []);
 
   const toggleTheme = () => {
     setTheme(theme === 'light' ? 'dark' : 'light');

@@ -5,6 +5,7 @@ import { useRoutines } from '@/hooks/useRoutines';
 import { Routine } from '@/types';
 import RoutineCard from '@/components/RoutineCard';
 import RoutineForm from '@/components/RoutineForm';
+import ConfirmDialog from '@/components/ConfirmDialog';
 
 export default function RoutineList() {
   const { routines, addRoutine, updateRoutine, deleteRoutine } = useRoutines();
@@ -12,6 +13,10 @@ export default function RoutineList() {
   const [editingRoutine, setEditingRoutine] = useState<Routine | null>(null);
   const [searchTerm, setSearchTerm] = useState('');
   const [filterType, setFilterType] = useState<string>('all');
+  const [deleteConfirm, setDeleteConfirm] = useState<{ isOpen: boolean; routine: Routine | null }>({
+    isOpen: false,
+    routine: null,
+  });
 
   const handleSave = (routineData: Omit<Routine, 'id'>) => {
     if (editingRoutine) {
@@ -28,10 +33,19 @@ export default function RoutineList() {
     setIsFormOpen(true);
   };
 
-  const handleDelete = (id: string) => {
-    if (confirm('Are you sure you want to delete this routine?')) {
-      deleteRoutine(id);
+  const handleDelete = (routine: Routine) => {
+    setDeleteConfirm({ isOpen: true, routine });
+  };
+
+  const confirmDelete = () => {
+    if (deleteConfirm.routine) {
+      deleteRoutine(deleteConfirm.routine.id);
     }
+    setDeleteConfirm({ isOpen: false, routine: null });
+  };
+
+  const cancelDelete = () => {
+    setDeleteConfirm({ isOpen: false, routine: null });
   };
 
   const handleCancel = () => {
@@ -84,7 +98,7 @@ export default function RoutineList() {
               key={routine.id}
               routine={routine}
               onEdit={handleEdit}
-              onDelete={handleDelete}
+              onDelete={() => handleDelete(routine)}
             />
           ))}
         </div>
@@ -97,6 +111,17 @@ export default function RoutineList() {
           onCancel={handleCancel}
         />
       )}
+
+      <ConfirmDialog
+        isOpen={deleteConfirm.isOpen}
+        title="Delete Routine"
+        message={`Are you sure you want to delete "${deleteConfirm.routine?.name}"? This action cannot be undone.`}
+        confirmLabel="Delete"
+        cancelLabel="Cancel"
+        type="danger"
+        onConfirm={confirmDelete}
+        onCancel={cancelDelete}
+      />
     </div>
   );
 }

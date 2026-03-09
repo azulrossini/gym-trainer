@@ -5,12 +5,17 @@ import { useWorkouts } from '@/hooks/useWorkouts';
 import { Workout } from '@/types';
 import WorkoutCard from '@/components/WorkoutCard';
 import WorkoutForm from '@/components/WorkoutForm';
+import ConfirmDialog from '@/components/ConfirmDialog';
 
 export default function WorkoutList() {
   const { workouts, addWorkout, updateWorkout, deleteWorkout } = useWorkouts();
   const [isFormOpen, setIsFormOpen] = useState(false);
   const [editingWorkout, setEditingWorkout] = useState<Workout | null>(null);
   const [searchTerm, setSearchTerm] = useState('');
+  const [deleteConfirm, setDeleteConfirm] = useState<{ isOpen: boolean; workout: Workout | null }>({
+    isOpen: false,
+    workout: null,
+  });
 
   const handleSave = (workoutData: Omit<Workout, 'id' | 'createdAt'>) => {
     if (editingWorkout) {
@@ -27,10 +32,19 @@ export default function WorkoutList() {
     setIsFormOpen(true);
   };
 
-  const handleDelete = (id: string) => {
-    if (confirm('Are you sure you want to delete this workout?')) {
-      deleteWorkout(id);
+  const handleDelete = (workout: Workout) => {
+    setDeleteConfirm({ isOpen: true, workout });
+  };
+
+  const confirmDelete = () => {
+    if (deleteConfirm.workout) {
+      deleteWorkout(deleteConfirm.workout.id);
     }
+    setDeleteConfirm({ isOpen: false, workout: null });
+  };
+
+  const cancelDelete = () => {
+    setDeleteConfirm({ isOpen: false, workout: null });
   };
 
   const handleCancel = () => {
@@ -75,7 +89,7 @@ export default function WorkoutList() {
               key={workout.id}
               workout={workout}
               onEdit={handleEdit}
-              onDelete={handleDelete}
+              onDelete={() => handleDelete(workout)}
             />
           ))}
         </div>
@@ -88,6 +102,17 @@ export default function WorkoutList() {
           onCancel={handleCancel}
         />
       )}
+
+      <ConfirmDialog
+        isOpen={deleteConfirm.isOpen}
+        title="Delete Workout"
+        message={`Are you sure you want to delete "${deleteConfirm.workout?.name}"? This action cannot be undone.`}
+        confirmLabel="Delete"
+        cancelLabel="Cancel"
+        type="danger"
+        onConfirm={confirmDelete}
+        onCancel={cancelDelete}
+      />
     </div>
   );
 }

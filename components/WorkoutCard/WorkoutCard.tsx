@@ -8,7 +8,7 @@ import './WorkoutCard.css';
 interface WorkoutCardProps {
   workout: Workout;
   onEdit: (workout: Workout) => void;
-  onDelete: (id: string) => void;
+  onDelete: (workout: Workout) => void;
 }
 
 export default function WorkoutCard({ workout, onEdit, onDelete }: WorkoutCardProps) {
@@ -51,7 +51,7 @@ export default function WorkoutCard({ workout, onEdit, onDelete }: WorkoutCardPr
             Edit
           </button>
           <button
-            onClick={() => onDelete(workout.id)}
+            onClick={() => onDelete(workout)}
             className="text-red-600 dark:text-red-400 hover:text-red-800 dark:hover:text-red-300 font-medium text-sm"
           >
             Delete

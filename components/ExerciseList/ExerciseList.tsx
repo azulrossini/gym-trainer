@@ -5,6 +5,7 @@ import { useExercises } from '@/hooks/useExercises';
 import { Exercise } from '@/types';
 import ExerciseCard from '@/components/ExerciseCard';
 import ExerciseForm from '@/components/ExerciseForm';
+import ConfirmDialog from '@/components/ConfirmDialog';
 
 export default function ExerciseList() {
   const { exercises, addExercise, updateExercise, deleteExercise } = useExercises();
@@ -12,6 +13,10 @@ export default function ExerciseList() {
   const [editingExercise, setEditingExercise] = useState<Exercise | null>(null);
   const [searchTerm, setSearchTerm] = useState('');
   const [filterCategory, setFilterCategory] = useState<string>('all');
+  const [deleteConfirm, setDeleteConfirm] = useState<{ isOpen: boolean; exercise: Exercise | null }>({
+    isOpen: false,
+    exercise: null,
+  });
 
   const handleSave = (exerciseData: Omit<Exercise, 'id'>) => {
     if (editingExercise) {
@@ -28,10 +33,19 @@ export default function ExerciseList() {
     setIsFormOpen(true);
   };
 
-  const handleDelete = (id: string) => {
-    if (confirm('Are you sure you want to delete this exercise?')) {
-      deleteExercise(id);
+  const handleDelete = (exercise: Exercise) => {
+    setDeleteConfirm({ isOpen: true, exercise });
+  };
+
+  const confirmDelete = () => {
+    if (deleteConfirm.exercise) {
+      deleteExercise(deleteConfirm.exercise.id);
     }
+    setDeleteConfirm({ isOpen: false, exercise: null });
+  };
+
+  const cancelDelete = () => {
+    setDeleteConfirm({ isOpen: false, exercise: null });
   };
 
   const handleCancel = () => {
@@ -89,7 +103,7 @@ export default function ExerciseList() {
               key={exercise.id}
               exercise={exercise}
               onEdit={handleEdit}
-              onDelete={handleDelete}
+              onDelete={() => handleDelete(exercise)}
             />
           ))}
         </div>
@@ -102,6 +116,17 @@ export default function ExerciseList() {
           onCancel={handleCancel}
         />
       )}
+
+      <ConfirmDialog
+        isOpen={deleteConfirm.isOpen}
+        title="Delete Exercise"
+        message={`Are you sure you want to delete "${deleteConfirm.exercise?.name}"? This action cannot be undone.`}
+        confirmLabel="Delete"
+        cancelLabel="Cancel"
+        type="danger"
+        onConfirm={confirmDelete}
+        onCancel={cancelDelete}
+      />
     </div>
   );
 }

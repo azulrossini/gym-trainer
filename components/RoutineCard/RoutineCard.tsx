@@ -5,13 +5,13 @@ import './RoutineCard.css';
 interface RoutineCardProps {
   routine: Routine;
   onEdit: (routine: Routine) => void;
-  onDelete: (id: string) => void;
+  onDelete: (routine: Routine) => void;
 }
 
 const routineTypeColors = {
-  'EMOM': 'bg-primary-100 text-primary-800',
-  'AMRAP': 'bg-accent-100 text-accent-800',
-  'Just Minutes': 'bg-success-100 text-success-800',
+  'EMOM': 'bg-primary-100 text-primary-800 dark:bg-primary-900/50 dark:text-primary-300',
+  'AMRAP': 'bg-accent-100 text-accent-800 dark:bg-accent-900/50 dark:text-accent-300',
+  'Just Minutes': 'bg-success-100 text-success-800 dark:bg-success-900/50 dark:text-success-300',
 };
 
 export default function RoutineCard({ routine, onEdit, onDelete }: RoutineCardProps) {
@@ -44,7 +44,7 @@ export default function RoutineCard({ routine, onEdit, onDelete }: RoutineCardPr
             Edit
           </button>
           <button
-            onClick={() => onDelete(routine.id)}
+            onClick={() => onDelete(routine)}
             className="text-red-600 dark:text-red-400 hover:text-red-800 dark:hover:text-red-300 font-medium text-sm"
           >
             Delete

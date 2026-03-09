@@ -67,15 +67,21 @@ export default function WorkoutForm({ workout, onSave, onCancel }: WorkoutFormPr
   const durationValid = totalDuration >= 30 && totalDuration <= 40;
 
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4 overflow-y-auto">
-      <div className="bg-white rounded-lg shadow-xl max-w-2xl w-full p-6 my-8">
-        <h2 className="text-2xl font-bold text-gray-800 mb-6">
+    <div 
+      className="fixed inset-0 bg-black/50 dark:bg-black/70 flex items-center justify-center z-50 p-4 overflow-y-auto"
+      onClick={onCancel}
+    >
+      <div 
+        className="bg-white dark:bg-gray-800 rounded-lg shadow-xl max-w-2xl w-full p-6 my-8"
+        onClick={(e) => e.stopPropagation()}
+      >
+        <h2 className="text-2xl font-bold text-gray-800 dark:text-white mb-6">
           {workout ? 'Edit Workout' : 'Add New Workout'}
         </h2>
         
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">
+            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
               Workout Name
             </label>
             <input
@@ -83,19 +89,19 @@ export default function WorkoutForm({ workout, onSave, onCancel }: WorkoutFormPr
               required
               value={formData.name}
               onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+              className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
               placeholder="e.g., Monday Morning Blast"
             />
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">
+            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
               Description (optional)
             </label>
             <textarea
               value={formData.description}
               onChange={(e) => setFormData({ ...formData, description: e.target.value })}
-              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+              className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
               rows={2}
               placeholder="Describe this workout..."
             />
@@ -103,20 +109,20 @@ export default function WorkoutForm({ workout, onSave, onCancel }: WorkoutFormPr
 
           <div>
             <div className="flex justify-between items-center mb-3">
-              <label className="block text-sm font-medium text-gray-700">
+              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">
                 Select Routines (minimum 3)
               </label>
               <div className="text-sm">
-                <span className={`font-semibold ${durationValid ? 'text-success-600' : 'text-red-600'}`}>
+                <span className={`font-semibold ${durationValid ? 'text-success-600 dark:text-success-400' : 'text-red-600 dark:text-red-400'}`}>
                   Total: {totalDuration} min
                 </span>
-                <span className="text-gray-500 ml-2">(30-40 min required)</span>
+                <span className="text-gray-500 dark:text-gray-400 ml-2">(30-40 min required)</span>
               </div>
             </div>
 
-            <div className="space-y-2 max-h-80 overflow-y-auto border border-gray-200 rounded-lg p-3">
+            <div className="space-y-2 max-h-80 overflow-y-auto border border-gray-200 dark:border-gray-700 dark:bg-gray-700/30 rounded-lg p-3">
               {routines.length === 0 ? (
-                <p className="text-gray-500 text-sm text-center py-4">
+                <p className="text-gray-500 dark:text-gray-400 text-sm text-center py-4">
                   No routines available. Please create some routines first.
                 </p>
               ) : (
@@ -125,8 +131,8 @@ export default function WorkoutForm({ workout, onSave, onCancel }: WorkoutFormPr
                     key={routine.id}
                     className={`flex items-center p-3 rounded border cursor-pointer transition-colors ${
                       formData.routines.includes(routine.id)
-                        ? 'border-primary-500 bg-primary-50'
-                        : 'border-gray-200 hover:bg-gray-50'
+                        ? 'border-primary-500 bg-primary-50 dark:bg-primary-900/30 dark:border-primary-400'
+                        : 'border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-700/50'
                     }`}
                   >
                     <input
@@ -136,8 +142,8 @@ export default function WorkoutForm({ workout, onSave, onCancel }: WorkoutFormPr
                       className="mr-3 h-4 w-4 text-primary-600 focus:ring-primary-500 rounded"
                     />
                     <div className="flex-1">
-                      <div className="font-medium text-gray-800">{routine.name}</div>
-                      <div className="text-sm text-gray-500">
+                      <div className="font-medium text-gray-800 dark:text-white">{routine.name}</div>
+                      <div className="text-sm text-gray-500 dark:text-gray-400">
                         {routine.type} • {routine.duration} min • {routine.exercises.length} exercises
                       </div>
                     </div>
@@ -148,7 +154,7 @@ export default function WorkoutForm({ workout, onSave, onCancel }: WorkoutFormPr
           </div>
 
           {formData.routines.length > 0 && formData.routines.length < 3 && (
-            <div className="text-sm text-red-600">
+            <div className="text-sm text-red-600 dark:text-red-400">
               Please select at least 3 routines (currently {formData.routines.length})
             </div>
           )}
@@ -157,14 +163,14 @@ export default function WorkoutForm({ workout, onSave, onCancel }: WorkoutFormPr
             <button
               type="submit"
               disabled={formData.routines.length < 3 || !durationValid}
-              className="flex-1 bg-primary-600 hover:bg-primary-700 text-white font-medium py-2 px-4 rounded-lg transition-colors disabled:bg-gray-300 disabled:cursor-not-allowed"
+              className="flex-1 bg-primary-600 hover:bg-primary-700 text-white font-medium py-2 px-4 rounded-lg transition-colors disabled:bg-gray-300 dark:disabled:bg-gray-700 disabled:cursor-not-allowed"
             >
               {workout ? 'Update' : 'Create'}
             </button>
             <button
               type="button"
               onClick={onCancel}
-              className="flex-1 bg-gray-200 hover:bg-gray-300 text-gray-800 font-medium py-2 px-4 rounded-lg transition-colors"
+              className="flex-1 bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600 text-gray-800 dark:text-gray-200 font-medium py-2 px-4 rounded-lg transition-colors"
             >
               Cancel
             </button>

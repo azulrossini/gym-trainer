@@ -19,4 +19,4 @@ export const editingRoutineAtom = atom<Routine | null>(null);
 export const editingWorkoutAtom = atom<Workout | null>(null);
 
 // Theme atom - 'light' | 'dark'
-export const themeAtom = atomWithStorage<'light' | 'dark'>('theme', 'light');
+export const themeAtom = atomWithStorage<'light' | 'dark'>('theme', 'dark');
