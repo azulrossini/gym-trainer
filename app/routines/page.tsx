@@ -1,5 +1,6 @@
 import Navigation from '@/components/Navigation';
 import RoutineList from '@/components/RoutineList';
+import { PAGES } from '@/constants';
 
 export default function RoutinesPage() {
   return (
@@ -8,9 +9,9 @@ export default function RoutinesPage() {
       
       <main className="container mx-auto px-4 py-8">
         <div className="mb-8">
-          <h1 className="text-3xl md:text-4xl font-bold text-gray-800 dark:text-white mb-2">Routines</h1>
+          <h1 className="text-3xl md:text-4xl font-bold text-gray-800 dark:text-white mb-2">{PAGES.ROUTINES.TITLE}</h1>
           <p className="text-base md:text-lg text-gray-600 dark:text-gray-300">
-            Create and manage your workout routines. Combine exercises into EMOM, AMRAP, or timed routines.
+            {PAGES.ROUTINES.DETAIL_DESCRIPTION}
           </p>
         </div>
         

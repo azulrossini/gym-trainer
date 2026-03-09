@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react';
 import { Workout } from '@/types';
 import { useRoutines } from '@/hooks/useRoutines';
+import { FORMS } from '@/constants';
 
 interface WorkoutFormProps {
   workout?: Workout | null;
@@ -38,13 +39,13 @@ export default function WorkoutForm({ workout, onSave, onCancel }: WorkoutFormPr
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (formData.routines.length < 3) {
-      alert('A workout must have at least 3 routines');
+      alert(FORMS.WORKOUT.MESSAGE_MIN_ROUTINES);
       return;
     }
 
     const totalDuration = calculateTotalDuration();
     if (totalDuration < 30 || totalDuration > 40) {
-      alert(`Total duration must be between 30-40 minutes. Current: ${totalDuration} minutes`);
+      alert(`${FORMS.WORKOUT.MESSAGE_DURATION_ERROR} ${totalDuration} minutes`);
       return;
     }
 
@@ -76,13 +77,13 @@ export default function WorkoutForm({ workout, onSave, onCancel }: WorkoutFormPr
         onClick={(e) => e.stopPropagation()}
       >
         <h2 className="text-2xl font-bold text-gray-800 dark:text-white mb-6">
-          {workout ? 'Edit Workout' : 'Add New Workout'}
+          {workout ? FORMS.WORKOUT.TITLE_EDIT : FORMS.WORKOUT.TITLE_NEW}
         </h2>
         
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
             <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-              Workout Name
+              {FORMS.WORKOUT.FIELD_NAME}
             </label>
             <input
               type="text"
@@ -90,40 +91,40 @@ export default function WorkoutForm({ workout, onSave, onCancel }: WorkoutFormPr
               value={formData.name}
               onChange={(e) => setFormData({ ...formData, name: e.target.value })}
               className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
-              placeholder="e.g., Monday Morning Blast"
+              placeholder={FORMS.WORKOUT.FIELD_NAME_PLACEHOLDER}
             />
           </div>
 
           <div>
             <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-              Description (optional)
+              {FORMS.WORKOUT.FIELD_DESCRIPTION}
             </label>
             <textarea
               value={formData.description}
               onChange={(e) => setFormData({ ...formData, description: e.target.value })}
               className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
               rows={2}
-              placeholder="Describe this workout..."
+              placeholder={FORMS.WORKOUT.FIELD_DESCRIPTION_PLACEHOLDER}
             />
           </div>
 
           <div>
             <div className="flex justify-between items-center mb-3">
               <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">
-                Select Routines (minimum 3)
+                {FORMS.WORKOUT.FIELD_ROUTINES}
               </label>
               <div className="text-sm">
                 <span className={`font-semibold ${durationValid ? 'text-success-600 dark:text-success-400' : 'text-red-600 dark:text-red-400'}`}>
-                  Total: {totalDuration} min
+                  {FORMS.WORKOUT.LABEL_TOTAL_DURATION}: {totalDuration} min
                 </span>
-                <span className="text-gray-500 dark:text-gray-400 ml-2">(30-40 min required)</span>
+                <span className="text-gray-500 dark:text-gray-400 ml-2">{FORMS.WORKOUT.LABEL_REQUIRED_DURATION}</span>
               </div>
             </div>
 
             <div className="space-y-2 max-h-80 overflow-y-auto border border-gray-200 dark:border-gray-700 dark:bg-gray-700/30 rounded-lg p-3">
               {routines.length === 0 ? (
                 <p className="text-gray-500 dark:text-gray-400 text-sm text-center py-4">
-                  No routines available. Please create some routines first.
+                  {FORMS.WORKOUT.MESSAGE_NO_ROUTINES}
                 </p>
               ) : (
                 routines.map((routine) => (
@@ -144,7 +145,7 @@ export default function WorkoutForm({ workout, onSave, onCancel }: WorkoutFormPr
                     <div className="flex-1">
                       <div className="font-medium text-gray-800 dark:text-white">{routine.name}</div>
                       <div className="text-sm text-gray-500 dark:text-gray-400">
-                        {routine.type} • {routine.duration} min • {routine.exercises.length} exercises
+                        {routine.type} • {routine.duration} min • {routine.exercises.length} {FORMS.WORKOUT.LABEL_ROUTINE_INFO}
                       </div>
                     </div>
                   </label>
@@ -155,7 +156,7 @@ export default function WorkoutForm({ workout, onSave, onCancel }: WorkoutFormPr
 
           {formData.routines.length > 0 && formData.routines.length < 3 && (
             <div className="text-sm text-red-600 dark:text-red-400">
-              Please select at least 3 routines (currently {formData.routines.length})
+              {FORMS.WORKOUT.MESSAGE_SELECT_MINIMUM} {formData.routines.length})
             </div>
           )}
 
@@ -165,14 +166,14 @@ export default function WorkoutForm({ workout, onSave, onCancel }: WorkoutFormPr
               disabled={formData.routines.length < 3 || !durationValid}
               className="flex-1 bg-primary-600 hover:bg-primary-700 text-white font-medium py-2 px-4 rounded-lg transition-colors disabled:bg-gray-300 dark:disabled:bg-gray-700 disabled:cursor-not-allowed"
             >
-              {workout ? 'Update' : 'Create'}
+              {workout ? FORMS.WORKOUT.BUTTON_UPDATE : FORMS.WORKOUT.BUTTON_CREATE}
             </button>
             <button
               type="button"
               onClick={onCancel}
               className="flex-1 bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600 text-gray-800 dark:text-gray-200 font-medium py-2 px-4 rounded-lg transition-colors"
             >
-              Cancel
+              {FORMS.WORKOUT.BUTTON_CANCEL}
             </button>
           </div>
         </form>

@@ -3,6 +3,7 @@
 import { useAtom } from 'jotai';
 import { themeAtom } from '@/atoms';
 import { useEffect, useState } from 'react';
+import { ARIA_LABELS } from '@/constants';
 import './ThemeToggle.css';
 
 export default function ThemeToggle() {
@@ -35,7 +36,7 @@ export default function ThemeToggle() {
       <button
         className="theme-toggle p-2 rounded-lg bg-white/20 transition-colors"
         disabled
-        aria-label="Toggle theme"
+        aria-label={ARIA_LABELS.TOGGLE_THEME}
       >
         <svg
           className="w-6 h-6 text-white"
@@ -54,12 +55,14 @@ export default function ThemeToggle() {
     );
   }
 
+  const ariaLabel = theme === 'light' ? ARIA_LABELS.SWITCH_TO_DARK : ARIA_LABELS.SWITCH_TO_LIGHT;
+
   return (
     <button
       onClick={toggleTheme}
       className="theme-toggle p-2 rounded-lg bg-white/20 hover:bg-white/30 transition-colors"
-      aria-label="Toggle theme"
-      title={`Switch to ${theme === 'light' ? 'dark' : 'light'} mode`}
+      aria-label={ARIA_LABELS.TOGGLE_THEME}
+      title={ariaLabel}
     >
       {theme === 'light' ? (
         <svg

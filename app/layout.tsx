@@ -2,12 +2,13 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import { Provider } from 'jotai';
+import { APP_CONSTANTS } from '@/constants';
 
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Gym Trainer - Your Personal Workout Manager",
-  description: "Create and manage your exercises, routines, and workouts",
+  title: APP_CONSTANTS.APP_TITLE,
+  description: APP_CONSTANTS.APP_DESCRIPTION,
   icons: {
     icon: [
       { url: '/favicon.ico', sizes: '32x32', type: 'image/x-icon' },
@@ -21,7 +22,7 @@ export const metadata: Metadata = {
   appleWebApp: {
     capable: true,
     statusBarStyle: 'default',
-    title: 'Gym Trainer',
+    title: APP_CONSTANTS.APP_NAME,
   },
 };
 

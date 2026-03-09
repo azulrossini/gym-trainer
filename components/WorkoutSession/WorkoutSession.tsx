@@ -361,14 +361,14 @@ export default function WorkoutSession({ workout, onExit }: WorkoutSessionProps)
             {/* Routine Type Info */}
             <div className="bg-blue-50 dark:bg-blue-900/30 border border-blue-200 dark:border-blue-800 rounded-lg p-4">
               <h3 className="font-semibold text-blue-900 dark:text-blue-300 mb-1">
-                {currentRoutine.type === 'EMOM' && '⏱️ EMOM - Every Minute On the Minute'}
-                {currentRoutine.type === 'AMRAP' && '🔁 AMRAP - As Many Rounds As Possible'}
-                {currentRoutine.type === 'Just Minutes' && '⏰ Just Minutes - Timed Workout'}
+                {currentRoutine.type === 'EMOM' ? '⏱️ EMOM - Every Minute On the Minute' : 
+                 currentRoutine.type === 'AMRAP' ? '🔁 AMRAP - As Many Rounds As Possible' :
+                 '⏰ Just Minutes - Timed Workout'}
               </h3>
               <p className="text-sm text-blue-700 dark:text-blue-400">
-                {currentRoutine.type === 'EMOM' && 'Complete exercises at the start of each minute. You will hear a beep every minute.'}
-                {currentRoutine.type === 'AMRAP' && 'Complete as many rounds of the exercises as possible within the time limit.'}
-                {currentRoutine.type === 'Just Minutes' && 'Work through the exercises at your own pace within the time limit.'}
+                {currentRoutine.type === 'EMOM' ? 'Complete exercises at the start of each minute. You will hear a beep every minute.' : 
+                 currentRoutine.type === 'AMRAP' ? 'Complete as many rounds of the exercises as possible within the time limit.' :
+                 'Work through the exercises at your own pace within the time limit.'}
               </p>
             </div>
           </div>

@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useState } from 'react';
 import ThemeToggle from '@/components/ThemeToggle';
+import { NAVIGATION, APP_CONSTANTS, ARIA_LABELS } from '@/constants';
 
 export default function Navigation() {
   const pathname = usePathname();
@@ -15,10 +16,10 @@ export default function Navigation() {
   };
 
   const links = [
-    { href: '/', label: 'Home' },
-    { href: '/exercises', label: 'Exercises' },
-    { href: '/routines', label: 'Routines' },
-    { href: '/workouts', label: 'Workouts' },
+    { href: '/', label: NAVIGATION.HOME },
+    { href: '/exercises', label: NAVIGATION.EXERCISES },
+    { href: '/routines', label: NAVIGATION.ROUTINES },
+    { href: '/workouts', label: NAVIGATION.WORKOUTS },
   ];
 
   const toggleMobileMenu = () => {
@@ -36,7 +37,7 @@ export default function Navigation() {
           {/* Logo */}
           <Link href="/" className="flex items-center gap-1 md:gap-2 font-bold text-base md:text-2xl hover:opacity-80 transition-opacity">
             <span className="text-xl md:text-2xl">💪</span>
-            <span className="text-sm md:text-xl">Gym Trainer</span>
+            <span className="text-sm md:text-xl">{APP_CONSTANTS.APP_NAME}</span>
           </Link>
 
           {/* Desktop Navigation */}
@@ -65,7 +66,7 @@ export default function Navigation() {
             <button
               onClick={toggleMobileMenu}
               className="p-2 rounded-lg hover:bg-white/10 transition-colors"
-              aria-label="Toggle menu"
+              aria-label={ARIA_LABELS.TOGGLE_MENU}
             >
               {isMobileMenuOpen ? (
                 <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">

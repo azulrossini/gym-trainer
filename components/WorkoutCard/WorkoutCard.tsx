@@ -48,13 +48,13 @@ export default function WorkoutCard({ workout, onEdit, onDelete }: WorkoutCardPr
             onClick={() => onEdit(workout)}
             className="text-primary-600 dark:text-primary-400 hover:text-primary-800 dark:hover:text-primary-300 font-medium text-sm"
           >
-            Edit
+            {CARDS.WORKOUT.BUTTON_EDIT}
           </button>
           <button
             onClick={() => onDelete(workout)}
             className="text-red-600 dark:text-red-400 hover:text-red-800 dark:hover:text-red-300 font-medium text-sm"
           >
-            Delete
+            {CARDS.WORKOUT.BUTTON_DELETE}
           </button>
         </div>
       </div>
@@ -65,7 +65,7 @@ export default function WorkoutCard({ workout, onEdit, onDelete }: WorkoutCardPr
 
       <div className="border-t border-gray-200 dark:border-gray-700 pt-3 mb-4">
         <h4 className="text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">
-          Routines ({workout.routines.length})
+          {CARDS.WORKOUT.LABEL_ROUTINES} ({workout.routines.length})
         </h4>
         <ul className="space-y-1">
           {workout.routines.map((routineId) => {
@@ -86,7 +86,7 @@ export default function WorkoutCard({ workout, onEdit, onDelete }: WorkoutCardPr
         }}
         className="block w-full text-center px-4 py-2 bg-primary-600 hover:bg-primary-700 text-white font-medium rounded-lg transition-colors"
       >
-        View Workout
+        {CARDS.WORKOUT.BUTTON_VIEW}
       </button>
     </div>
   );

@@ -1,5 +1,6 @@
 import { Routine } from '@/types';
 import { useExercises } from '@/hooks/useExercises';
+import { CARDS, TIME_FORMAT } from '@/constants';
 import './RoutineCard.css';
 
 interface RoutineCardProps {
@@ -34,20 +35,20 @@ export default function RoutineCard({ routine, onEdit, onDelete }: RoutineCardPr
       <div className="flex justify-between items-start mb-3">
         <div>
           <h3 className="text-xl font-bold text-gray-800 dark:text-white">{routine.name}</h3>
-          <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">{routine.duration} minutes</p>
+          <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">{routine.duration} {TIME_FORMAT.MINUTES}</p>
         </div>
         <div className="flex gap-2">
           <button
             onClick={() => onEdit(routine)}
             className="text-primary-600 dark:text-primary-400 hover:text-primary-800 dark:hover:text-primary-300 font-medium text-sm"
           >
-            Edit
+            {CARDS.ROUTINE.BUTTON_EDIT}
           </button>
           <button
             onClick={() => onDelete(routine)}
             className="text-red-600 dark:text-red-400 hover:text-red-800 dark:hover:text-red-300 font-medium text-sm"
           >
-            Delete
+            {CARDS.ROUTINE.BUTTON_DELETE}
           </button>
         </div>
       </div>
@@ -64,7 +65,7 @@ export default function RoutineCard({ routine, onEdit, onDelete }: RoutineCardPr
 
       <div className="border-t border-gray-200 dark:border-gray-700 pt-3">
         <h4 className="text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">
-          Exercises ({routine.exercises.length})
+          {CARDS.ROUTINE.LABEL_EXERCISES} ({routine.exercises.length})
         </h4>
         <ul className="space-y-1">
           {routine.exercises.slice(0, 3).map((ex, idx) => {
@@ -73,7 +74,7 @@ export default function RoutineCard({ routine, onEdit, onDelete }: RoutineCardPr
               <li key={idx} className="text-sm text-gray-600 dark:text-gray-400">
                 • {exercise?.name || 'Unknown'} 
                 {ex.reps && ` - ${ex.reps} reps`}
-                {ex.duration && ` - ${ex.duration}s`}
+                {ex.duration && ` - ${ex.duration}${TIME_FORMAT.SECONDS}`}
               </li>
             );
           })}

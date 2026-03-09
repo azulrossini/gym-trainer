@@ -6,6 +6,7 @@ import Navigation from '@/components/Navigation';
 import WorkoutDetail from '@/components/WorkoutDetail';
 import WorkoutSession from '@/components/WorkoutSession';
 import { useWorkouts } from '@/hooks/useWorkouts';
+import { WORKOUT_DETAIL } from '@/constants';
 
 export default function WorkoutDetailPage() {
   const params = useParams();
@@ -19,8 +20,8 @@ export default function WorkoutDetailPage() {
         <Navigation />
         <main className="container mx-auto px-4 py-8">
           <div className="text-center py-12">
-            <h1 className="text-3xl font-bold text-gray-800 dark:text-white mb-4">Workout Not Found</h1>
-            <p className="text-gray-600 dark:text-gray-300">The workout youre looking for doesnt exist.</p>
+            <h1 className="text-3xl font-bold text-gray-800 dark:text-white mb-4">{WORKOUT_DETAIL.MESSAGE_NOT_FOUND}</h1>
+            <p className="text-gray-600 dark:text-gray-300">{WORKOUT_DETAIL.MESSAGE_NOT_FOUND_DETAIL}</p>
           </div>
         </main>
       </div>

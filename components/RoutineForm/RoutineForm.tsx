@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react';
 import { Routine, RoutineType, RoutineExercise } from '@/types';
 import { useExercises } from '@/hooks/useExercises';
+import { FORMS, ROUTINE_TYPES } from '@/constants';
 
 interface RoutineFormProps {
   routine?: Routine | null;
@@ -10,13 +11,13 @@ interface RoutineFormProps {
   onCancel: () => void;
 }
 
-const routineTypes: RoutineType[] = ['EMOM', 'AMRAP', 'Just Minutes'];
+const routineTypes: RoutineType[] = Object.values(ROUTINE_TYPES) as RoutineType[];
 
 export default function RoutineForm({ routine, onSave, onCancel }: RoutineFormProps) {
   const { exercises } = useExercises();
   const [formData, setFormData] = useState({
     name: '',
-    type: 'EMOM' as RoutineType,
+    type: ROUTINE_TYPES.EMOM as RoutineType,
     duration: 10,
     description: '',
     exercises: [] as RoutineExercise[],
@@ -37,7 +38,7 @@ export default function RoutineForm({ routine, onSave, onCancel }: RoutineFormPr
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (formData.exercises.length === 0) {
-      alert('Please add at least one exercise to the routine');
+      alert(FORMS.ROUTINE.MESSAGE_ADD_EXERCISE_FIRST);
       return;
     }
     onSave(formData);
@@ -45,7 +46,7 @@ export default function RoutineForm({ routine, onSave, onCancel }: RoutineFormPr
 
   const addExercise = () => {
     if (exercises.length === 0) {
-      alert('Please create some exercises first');
+      alert(FORMS.ROUTINE.MESSAGE_CREATE_EXERCISES_FIRST);
       return;
     }
     setFormData({
@@ -83,14 +84,14 @@ export default function RoutineForm({ routine, onSave, onCancel }: RoutineFormPr
         onClick={(e) => e.stopPropagation()}
       >
         <h2 className="text-2xl font-bold text-gray-800 dark:text-white mb-6">
-          {routine ? 'Edit Routine' : 'Add New Routine'}
+          {routine ? FORMS.ROUTINE.TITLE_EDIT : FORMS.ROUTINE.TITLE_NEW}
         </h2>
         
         <form onSubmit={handleSubmit} className="space-y-4">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div>
               <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                Routine Name
+                {FORMS.ROUTINE.FIELD_NAME}
               </label>
               <input
                 type="text"
@@ -98,13 +99,13 @@ export default function RoutineForm({ routine, onSave, onCancel }: RoutineFormPr
                 value={formData.name}
                 onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                 className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
-                placeholder="e.g., Morning Cardio"
+                placeholder={FORMS.ROUTINE.FIELD_NAME_PLACEHOLDER}
               />
             </div>
 
             <div>
               <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                Type
+                {FORMS.ROUTINE.FIELD_TYPE}
               </label>
               <select
                 value={formData.type}
@@ -124,7 +125,7 @@ export default function RoutineForm({ routine, onSave, onCancel }: RoutineFormPr
 
           <div>
             <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-              Duration (minutes)
+              {FORMS.ROUTINE.FIELD_DURATION}
             </label>
             <input
               type="number"
@@ -140,28 +141,28 @@ export default function RoutineForm({ routine, onSave, onCancel }: RoutineFormPr
 
           <div>
             <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-              Description (optional)
+              {FORMS.ROUTINE.FIELD_DESCRIPTION}
             </label>
             <textarea
               value={formData.description}
               onChange={(e) => setFormData({ ...formData, description: e.target.value })}
               className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
               rows={2}
-              placeholder="Describe this routine..."
+              placeholder={FORMS.ROUTINE.FIELD_DESCRIPTION_PLACEHOLDER}
             />
           </div>
 
           <div>
             <div className="flex justify-between items-center mb-3">
               <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">
-                Exercises
+                {FORMS.ROUTINE.FIELD_EXERCISES}
               </label>
               <button
                 type="button"
                 onClick={addExercise}
                 className="px-3 py-1 bg-primary-600 hover:bg-primary-700 text-white text-sm font-medium rounded transition-colors"
               >
-                Add Exercise
+                {FORMS.ROUTINE.BUTTON_ADD_EXERCISE}
               </button>
             </div>
 
@@ -185,7 +186,7 @@ export default function RoutineForm({ routine, onSave, onCancel }: RoutineFormPr
 
                     <input
                       type="number"
-                      placeholder="Reps"
+                      placeholder={FORMS.ROUTINE.PLACEHOLDER_REPS}
                       value={ex.reps || ''}
                       onChange={(e) =>
                         updateExercise(index, {
@@ -197,7 +198,7 @@ export default function RoutineForm({ routine, onSave, onCancel }: RoutineFormPr
 
                     <input
                       type="number"
-                      placeholder="Seconds"
+                      placeholder={FORMS.ROUTINE.PLACEHOLDER_SECONDS}
                       value={ex.duration || ''}
                       onChange={(e) =>
                         updateExercise(index, {
@@ -212,14 +213,15 @@ export default function RoutineForm({ routine, onSave, onCancel }: RoutineFormPr
                       onClick={() => removeExercise(index)}
                       className="text-red-600 dark:text-red-400 hover:text-red-800 dark:hover:text-red-300 font-medium text-sm px-2"
                     >
-                      Remove
+                      {FORMS.ROUTINE.BUTTON_REMOVE}
                     </button>
                   </div>
                 </div>
               ))}
+
               {formData.exercises.length === 0 && (
                 <p className="text-gray-500 dark:text-gray-400 text-sm text-center py-4">
-                  No exercises added yet
+                  {FORMS.ROUTINE.MESSAGE_NO_EXERCISES}
                 </p>
               )}
             </div>
@@ -230,14 +232,14 @@ export default function RoutineForm({ routine, onSave, onCancel }: RoutineFormPr
               type="submit"
               className="flex-1 bg-primary-600 hover:bg-primary-700 text-white font-medium py-2 px-4 rounded-lg transition-colors"
             >
-              {routine ? 'Update' : 'Create'}
+              {routine ? FORMS.ROUTINE.BUTTON_UPDATE : FORMS.ROUTINE.BUTTON_CREATE}
             </button>
             <button
               type="button"
               onClick={onCancel}
               className="flex-1 bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600 text-gray-800 dark:text-gray-200 font-medium py-2 px-4 rounded-lg transition-colors"
             >
-              Cancel
+              {FORMS.ROUTINE.BUTTON_CANCEL}
             </button>
           </div>
         </form>

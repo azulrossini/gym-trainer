@@ -1,4 +1,5 @@
 import { Exercise } from '@/types';
+import { CARDS } from '@/constants';
 import './ExerciseCard.css';
 
 interface ExerciseCardProps {
@@ -46,13 +47,13 @@ export default function ExerciseCard({ exercise, onEdit, onDelete }: ExerciseCar
             onClick={() => onEdit(exercise)}
             className="text-primary-600 dark:text-primary-400 hover:text-primary-800 dark:hover:text-primary-300 font-medium text-sm"
           >
-            Edit
+            {CARDS.EXERCISE.BUTTON_EDIT}
           </button>
           <button
             onClick={() => onDelete(exercise)}
             className="text-red-600 dark:text-red-400 hover:text-red-800 dark:hover:text-red-300 font-medium text-sm"
           >
-            Delete
+            {CARDS.EXERCISE.BUTTON_DELETE}
           </button>
         </div>
       </div>
