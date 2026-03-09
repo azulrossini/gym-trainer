@@ -8,10 +8,10 @@ export default function Home() {
       
       <main className="container mx-auto px-4 py-12">
         <div className="text-center mb-16">
-          <h1 className="text-6xl font-bold text-gray-800 dark:text-white mb-4">
+          <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-800 dark:text-white mb-4">
             Welcome to <span className="text-primary-600 dark:text-primary-400">Gym Trainer</span>
           </h1>
-          <p className="text-xl text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
+          <p className="text-lg md:text-xl text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
             Your ultimate workout management system. Create exercises, build routines, and design complete workouts tailored to your fitness goals.
           </p>
         </div>

@@ -2,33 +2,57 @@
 
 import { useAtom } from 'jotai';
 import { themeAtom } from '@/atoms';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import './ThemeToggle.css';
 
 export default function ThemeToggle() {
   const [theme, setTheme] = useAtom(themeAtom);
+  const [mounted, setMounted] = useState(false);
+
+  // Only render after mount to avoid hydration mismatch
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   useEffect(() => {
-    // Apply theme to document on mount and when it changes
+    if (!mounted) return;
+    
+    // Apply theme to document
     if (theme === 'dark') {
       document.documentElement.classList.add('dark');
     } else {
       document.documentElement.classList.remove('dark');
     }
-  }, [theme]);
-
-  // Apply dark mode on initial load (before hydration)
-  useEffect(() => {
-    // Check if there's a stored preference, otherwise default to dark
-    const storedTheme = localStorage.getItem('theme');
-    if (!storedTheme || storedTheme === '"dark"') {
-      document.documentElement.classList.add('dark');
-    }
-  }, []);
+  }, [theme, mounted]);
 
   const toggleTheme = () => {
     setTheme(theme === 'light' ? 'dark' : 'light');
   };
+
+  // Avoid hydration mismatch by not rendering interactive content until mounted
+  if (!mounted) {
+    return (
+      <button
+        className="theme-toggle p-2 rounded-lg bg-white/20 transition-colors"
+        disabled
+        aria-label="Toggle theme"
+      >
+        <svg
+          className="w-6 h-6 text-white"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth={2}
+            d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"
+          />
+        </svg>
+      </button>
+    );
+  }
 
   return (
     <button

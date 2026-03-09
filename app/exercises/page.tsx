@@ -8,8 +8,8 @@ export default function ExercisesPage() {
       
       <main className="container mx-auto px-4 py-8">
         <div className="mb-8">
-          <h1 className="text-4xl font-bold text-gray-800 dark:text-white mb-2">Exercises</h1>
-          <p className="text-gray-600 dark:text-gray-300">
+          <h1 className="text-3xl md:text-4xl font-bold text-gray-800 dark:text-white mb-2">Exercises</h1>
+          <p className="text-base md:text-lg text-gray-600 dark:text-gray-300">
             Manage your exercise library. Create, edit, and organize exercises by category and difficulty.
           </p>
         </div>
