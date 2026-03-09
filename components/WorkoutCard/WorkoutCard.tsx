@@ -3,6 +3,7 @@
 import { Workout } from '@/types';
 import { useRoutines } from '@/hooks/useRoutines';
 import { useRouter } from 'next/navigation';
+import { CARDS } from '@/constants';
 import './WorkoutCard.css';
 
 interface WorkoutCardProps {

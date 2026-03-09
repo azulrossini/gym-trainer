@@ -282,93 +282,88 @@ export default function WorkoutSession({ workout, onExit }: WorkoutSessionProps)
                   </div>
                 )}
               </div>
-              </div>
+            </div>
 
-              {/* Progress Bar */}
-              <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-4 mb-6 overflow-hidden">
-                <div
-                  className={`h-full bg-gradient-to-r ${routineTypeColors[currentRoutine.type]} transition-all duration-1000 ${
-                    status === 'running' ? 'pulse-animation' : ''
-                  }`}
-                  style={{ width: `${Math.min(getProgressPercentage(), 100)}%` }}
-                />
-              </div>
+            {/* Progress Bar */}
+            <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-4 mb-6 overflow-hidden">
+              <div
+                className={`h-full bg-gradient-to-r ${routineTypeColors[currentRoutine.type]} transition-all duration-1000 ${
+                  status === 'running' ? 'pulse-animation' : ''
+                }`}
+                style={{ width: `${Math.min(getProgressPercentage(), 100)}%` }}
+              />
+            </div>
 
-              {/* Control Buttons */}
-              <div className="flex flex-col sm:flex-row gap-2 md:gap-3 justify-center mb-3 md:mb-4">
-                {status === 'ready' && (
-                  <button
-                    onClick={handleStart}
-                    className="control-button px-6 md:px-8 py-3 md:py-4 bg-success-600 hover:bg-success-700 text-white font-bold rounded-lg text-lg md:text-xl transition-colors"
-                  >
-                    ▶ Start
-                  </button>
-                )}
-                {status === 'running' && (
-                  <button
-                    onClick={handlePause}
-                    className="control-button px-6 md:px-8 py-3 md:py-4 bg-amber-600 hover:bg-amber-700 text-white font-bold rounded-lg text-lg md:text-xl transition-colors"
-                  >
-                    ⏸ Pause
-                  </button>
-                )}
-                {status === 'paused' && !isRoutineComplete && (
-                  <button
-                    onClick={handleResume}
-                    className="control-button px-6 md:px-8 py-3 md:py-4 bg-success-600 hover:bg-success-700 text-white font-bold rounded-lg text-lg md:text-xl transition-colors"
-                  >
-                    ▶ Resume
-                  </button>
-                )}
-                {status !== 'running' && !isRoutineComplete && (
-                  <button
-                    onClick={handleSkipToEnd}
-                    className="control-button px-4 md:px-6 py-3 md:py-4 bg-gray-400 hover:bg-gray-500 text-white font-medium rounded-lg transition-colors text-sm md:text-base"
-                  >
-                    Skip to End
-                  </button>
-                )}
-              </div>
-
-              {/* Routine Navigation */}
-              <div className="flex flex-col sm:flex-row gap-2 md:gap-3 justify-center">
+            {/* Control Buttons */}
+            <div className="flex flex-col sm:flex-row gap-2 md:gap-3 justify-center mb-3 md:mb-4">
+              {status === 'ready' && (
                 <button
-                  onClick={handlePreviousRoutine}
-                  disabled={currentRoutineIndex === 0}
-                  className="px-4 md:px-6 py-2 bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600 text-gray-800 dark:text-gray-200 font-medium rounded-lg transition-colors disabled:opacity-50 disabled:cursor-not-allowed text-sm md:text-base"
+                  onClick={handleStart}
+                  className="control-button px-6 md:px-8 py-3 md:py-4 bg-success-600 hover:bg-success-700 text-white font-bold rounded-lg text-lg md:text-xl transition-colors"
                 >
-                  ← Previous
+                  ▶ Start
                 </button>
-                {isRoutineComplete && (
-                  <button
-                    onClick={handleNextRoutine}
-                    className="px-4 md:px-6 py-2 bg-primary-600 hover:bg-primary-700 text-white font-bold rounded-lg transition-colors text-sm md:text-base"
-                  >
-                    {currentRoutineIndex === routines.length - 1 ? 'Finish Workout ✓' : 'Next Routine →'}
-                  </button>
-                )}
-                {!isRoutineComplete && currentRoutineIndex < routines.length - 1 && (
-                  <button
-                    onClick={handleNextRoutine}
-                    className="px-4 md:px-6 py-2 bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600 text-gray-800 dark:text-gray-200 font-medium rounded-lg transition-colors text-sm md:text-base"
-                  >
-                    Skip Routine →
-                  </button>
-                )}
-              </div>
+              )}
+              {status === 'running' && (
+                <button
+                  onClick={handlePause}
+                  className="control-button px-6 md:px-8 py-3 md:py-4 bg-amber-600 hover:bg-amber-700 text-white font-bold rounded-lg text-lg md:text-xl transition-colors"
+                >
+                  ⏸ Pause
+                </button>
+              )}
+              {status === 'paused' && !isRoutineComplete && (
+                <button
+                  onClick={handleResume}
+                  className="control-button px-6 md:px-8 py-3 md:py-4 bg-success-600 hover:bg-success-700 text-white font-bold rounded-lg text-lg md:text-xl transition-colors"
+                >
+                  ▶ Resume
+                </button>
+              )}
+              {status !== 'running' && !isRoutineComplete && (
+                <button
+                  onClick={handleSkipToEnd}
+                  className="control-button px-4 md:px-6 py-3 md:py-4 bg-gray-400 hover:bg-gray-500 text-white font-medium rounded-lg transition-colors text-sm md:text-base"
+                >
+                  Skip to End
+                </button>
+              )}
+            </div>
+
+            {/* Routine Navigation */}
+            <div className="flex flex-col sm:flex-row gap-2 md:gap-3 justify-center">
+              <button
+                onClick={handlePreviousRoutine}
+                disabled={currentRoutineIndex === 0}
+                className="px-4 md:px-6 py-2 bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600 text-gray-800 dark:text-gray-200 font-medium rounded-lg transition-colors disabled:opacity-50 disabled:cursor-not-allowed text-sm md:text-base"
+              >
+                ← Previous
+              </button>
+              {isRoutineComplete && (
+                <button
+                  onClick={handleNextRoutine}
+                  className="px-4 md:px-6 py-2 bg-primary-600 hover:bg-primary-700 text-white font-bold rounded-lg transition-colors text-sm md:text-base"
+                >
+                  {currentRoutineIndex === routines.length - 1 ? 'Finish Workout ✓' : 'Next Routine →'}
+                </button>
+              )}
+              {!isRoutineComplete && currentRoutineIndex < routines.length - 1 && (
+                <button
+                  onClick={handleNextRoutine}
+                  className="px-4 md:px-6 py-2 bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600 text-gray-800 dark:text-gray-200 font-medium rounded-lg transition-colors text-sm md:text-base"
+                >
+                  Skip Routine →
+                </button>
+              )}
             </div>
 
             {/* Routine Type Info */}
-            <div className="bg-blue-50 dark:bg-blue-900/30 border border-blue-200 dark:border-blue-800 rounded-lg p-4">
+            <div className="bg-blue-50 dark:bg-blue-900 dark:bg-opacity-30 border border-blue-200 dark:border-blue-800 rounded-lg p-4">
               <h3 className="font-semibold text-blue-900 dark:text-blue-300 mb-1">
-                {currentRoutine.type === 'EMOM' ? '⏱️ EMOM - Every Minute On the Minute' : 
-                 currentRoutine.type === 'AMRAP' ? '🔁 AMRAP - As Many Rounds As Possible' :
-                 '⏰ Just Minutes - Timed Workout'}
+                {currentRoutine.type === 'EMOM' ? '⏱️ EMOM - Every Minute On the Minute' : (currentRoutine.type === 'AMRAP' ? '🔁 AMRAP - As Many Rounds As Possible' : '⏰ Just Minutes - Timed Workout')}
               </h3>
               <p className="text-sm text-blue-700 dark:text-blue-400">
-                {currentRoutine.type === 'EMOM' ? 'Complete exercises at the start of each minute. You will hear a beep every minute.' : 
-                 currentRoutine.type === 'AMRAP' ? 'Complete as many rounds of the exercises as possible within the time limit.' :
-                 'Work through the exercises at your own pace within the time limit.'}
+                {currentRoutine.type === 'EMOM' ? 'Complete exercises at the start of each minute. You will hear a beep every minute.' : (currentRoutine.type === 'AMRAP' ? 'Complete as many rounds of the exercises as possible within the time limit.' : 'Work through the exercises at your own pace within the time limit.')}
               </p>
             </div>
           </div>
@@ -389,7 +384,7 @@ export default function WorkoutSession({ workout, onExit }: WorkoutSessionProps)
                     className="exercise-checklist-item border border-gray-200 dark:border-gray-700 rounded-lg p-3 md:p-4"
                   >
                     <div className="flex items-start gap-2 md:gap-3">
-                      <div className="flex-shrink-0 w-7 h-7 md:w-8 md:h-8 bg-primary-100 dark:bg-primary-900/50 text-primary-700 dark:text-primary-300 rounded-full flex items-center justify-center font-bold text-sm md:text-base">
+                      <div className="flex-shrink-0 w-7 h-7 md:w-8 md:h-8 bg-primary-100 dark:bg-primary-900 dark:bg-opacity-50 text-primary-700 dark:text-primary-300 rounded-full flex items-center justify-center font-bold text-sm md:text-base">
                         {idx + 1}
                       </div>
                       <div className="flex-1">
@@ -397,12 +392,12 @@ export default function WorkoutSession({ workout, onExit }: WorkoutSessionProps)
                         <p className="text-xs md:text-sm text-gray-600 dark:text-gray-400 mb-2">{exercise.description}</p>
                         <div className="flex gap-2 flex-wrap">
                           {ex.reps && (
-                            <span className="text-xs md:text-sm bg-blue-100 dark:bg-blue-900/50 text-blue-800 dark:text-blue-300 px-2 md:px-3 py-1 rounded-full font-semibold">
+                            <span className="text-xs md:text-sm bg-blue-100 dark:bg-blue-900 dark:bg-opacity-50 text-blue-800 dark:text-blue-300 px-2 md:px-3 py-1 rounded-full font-semibold">
                               {ex.reps} reps
                             </span>
                           )}
                           {ex.duration && (
-                            <span className="text-xs md:text-sm bg-purple-100 dark:bg-purple-900/50 text-purple-800 dark:text-purple-300 px-2 md:px-3 py-1 rounded-full font-semibold">
+                            <span className="text-xs md:text-sm bg-purple-100 dark:bg-purple-900 dark:bg-opacity-50 text-purple-800 dark:text-purple-300 px-2 md:px-3 py-1 rounded-full font-semibold">
                               {ex.duration}s
                             </span>
                           )}

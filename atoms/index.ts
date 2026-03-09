@@ -1,5 +1,5 @@
 import { atomWithStorage } from 'jotai/utils';
-import { Exercise, Routine, Workout } from './types';
+import { Exercise, Routine, Workout } from '@/types';
 
 // Data atoms with localStorage persistence
 export const exercisesAtom = atomWithStorage<Exercise[]>('exercises', []);
