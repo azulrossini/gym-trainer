@@ -24,7 +24,7 @@ export default function WorkoutSession({ workout, onExit }: WorkoutSessionProps)
   const [isEditingTime, setIsEditingTime] = useState(false);
   const [editTimeValue, setEditTimeValue] = useState('');
   
-  const intervalRef = useRef<NodeJS.Timeout>();
+  const intervalRef = useRef<NodeJS.Timeout | undefined>(undefined);
   const lastMinuteRef = useRef(0);
 
   const routines = workout.routines
