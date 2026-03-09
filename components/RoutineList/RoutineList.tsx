@@ -3,8 +3,8 @@
 import { useState } from 'react';
 import { useRoutines } from '@/hooks/useRoutines';
 import { Routine } from '@/types';
-import RoutineCard from './RoutineCard';
-import RoutineForm from './RoutineForm';
+import RoutineCard from '@/components/RoutineCard';
+import RoutineForm from '@/components/RoutineForm';
 
 export default function RoutineList() {
   const { routines, addRoutine, updateRoutine, deleteRoutine } = useRoutines();
@@ -53,12 +53,12 @@ export default function RoutineList() {
           placeholder="Search routines..."
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
-          className="flex-1 px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+          className="flex-1 px-4 py-2 border border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
         />
         <select
           value={filterType}
           onChange={(e) => setFilterType(e.target.value)}
-          className="px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+          className="px-4 py-2 border border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
         >
           <option value="all">All Types</option>
           <option value="EMOM">EMOM</option>
@@ -75,7 +75,7 @@ export default function RoutineList() {
 
       {filteredRoutines.length === 0 ? (
         <div className="text-center py-12">
-          <p className="text-gray-500 text-lg">No routines found</p>
+          <p className="text-gray-500 dark:text-gray-400 text-lg">No routines found</p>
         </div>
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">

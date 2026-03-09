@@ -3,8 +3,8 @@
 import { useState } from 'react';
 import { useExercises } from '@/hooks/useExercises';
 import { Exercise } from '@/types';
-import ExerciseCard from './ExerciseCard';
-import ExerciseForm from './ExerciseForm';
+import ExerciseCard from '@/components/ExerciseCard';
+import ExerciseForm from '@/components/ExerciseForm';
 
 export default function ExerciseList() {
   const { exercises, addExercise, updateExercise, deleteExercise } = useExercises();
@@ -53,12 +53,12 @@ export default function ExerciseList() {
           placeholder="Search exercises..."
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
-          className="flex-1 px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+          className="flex-1 px-4 py-2 border border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
         />
         <select
           value={filterCategory}
           onChange={(e) => setFilterCategory(e.target.value)}
-          className="px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+          className="px-4 py-2 border border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
         >
           <option value="all">All Categories</option>
           <option value="abs">Abs</option>
@@ -80,7 +80,7 @@ export default function ExerciseList() {
 
       {filteredExercises.length === 0 ? (
         <div className="text-center py-12">
-          <p className="text-gray-500 text-lg">No exercises found</p>
+          <p className="text-gray-500 dark:text-gray-400 text-lg">No exercises found</p>
         </div>
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">

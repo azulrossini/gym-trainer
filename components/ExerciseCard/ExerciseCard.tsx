@@ -36,28 +36,28 @@ export default function ExerciseCard({ exercise, onEdit, onDelete }: ExerciseCar
 
   return (
     <div 
-      className="exercise-card bg-white rounded-lg shadow-md p-6 border border-gray-200 cursor-pointer"
+      className="exercise-card bg-white dark:bg-gray-800 rounded-lg shadow-md p-6 border border-gray-200 dark:border-gray-700 cursor-pointer"
       onClick={handleCardClick}
     >
       <div className="flex justify-between items-start mb-3">
-        <h3 className="text-xl font-bold text-gray-800">{exercise.name}</h3>
+        <h3 className="text-xl font-bold text-gray-800 dark:text-white">{exercise.name}</h3>
         <div className="flex gap-2">
           <button
             onClick={() => onEdit(exercise)}
-            className="text-primary-600 hover:text-primary-800 font-medium text-sm"
+            className="text-primary-600 dark:text-primary-400 hover:text-primary-800 dark:hover:text-primary-300 font-medium text-sm"
           >
             Edit
           </button>
           <button
             onClick={() => onDelete(exercise.id)}
-            className="text-red-600 hover:text-red-800 font-medium text-sm"
+            className="text-red-600 dark:text-red-400 hover:text-red-800 dark:hover:text-red-300 font-medium text-sm"
           >
             Delete
           </button>
         </div>
       </div>
       
-      <p className="text-gray-600 mb-4">{exercise.description}</p>
+      <p className="text-gray-600 dark:text-gray-300 mb-4">{exercise.description}</p>
       
       <div className="flex gap-2 flex-wrap">
         <span className={`px-3 py-1 rounded-full text-xs font-medium ${categoryColors[exercise.category]}`}>

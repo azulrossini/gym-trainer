@@ -32,18 +32,18 @@ export default function WorkoutDetail({ workout, onStartWorkout }: WorkoutDetail
       <div className="mb-8">
         <Link
           href="/workouts"
-          className="text-primary-600 hover:text-primary-800 font-medium mb-4 inline-block"
+          className="text-primary-600 dark:text-primary-400 hover:text-primary-800 dark:hover:text-primary-300 font-medium mb-4 inline-block"
         >
           ← Back to Workouts
         </Link>
         <div className="flex justify-between items-start mb-4">
           <div>
-            <h1 className="text-4xl font-bold text-gray-800 mb-2">{workout.name}</h1>
+            <h1 className="text-4xl font-bold text-gray-800 dark:text-white mb-2">{workout.name}</h1>
             {workout.description && (
-              <p className="text-gray-600 text-lg mb-2">{workout.description}</p>
+              <p className="text-gray-600 dark:text-gray-300 text-lg mb-2">{workout.description}</p>
             )}
-            <p className="text-gray-500">
-              Total Duration: <span className="font-semibold text-success-600">{workout.totalDuration} minutes</span>
+            <p className="text-gray-500 dark:text-gray-400">
+              Total Duration: <span className="font-semibold text-success-600 dark:text-success-400">{workout.totalDuration} minutes</span>
             </p>
           </div>
           {onStartWorkout && validRoutines.length > 0 && (
@@ -59,14 +59,14 @@ export default function WorkoutDetail({ workout, onStartWorkout }: WorkoutDetail
 
       {validRoutines.length === 0 ? (
         <div className="text-center py-12">
-          <p className="text-gray-500 text-lg">No routines found for this workout</p>
+          <p className="text-gray-500 dark:text-gray-400 text-lg">No routines found for this workout</p>
         </div>
       ) : (
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
           {validRoutines.map((routine) => (
             <div
               key={routine.id}
-              className="routine-column bg-white rounded-lg shadow-lg border-t-4 overflow-hidden"
+              className="routine-column bg-white dark:bg-gray-800 rounded-lg shadow-lg border-t-4 overflow-hidden"
               style={{ borderTopColor: routineTypeColors[routine.type] }}
             >
               <div className={`${routineTypeColors[routine.type]} text-white p-4`}>
@@ -81,7 +81,7 @@ export default function WorkoutDetail({ workout, onStartWorkout }: WorkoutDetail
               </div>
 
               <div className="p-4">
-                <h3 className="text-sm font-semibold text-gray-700 mb-3 uppercase tracking-wide">
+                <h3 className="text-sm font-semibold text-gray-700 dark:text-gray-300 mb-3 uppercase tracking-wide">
                   Exercises ({routine.exercises.length})
                 </h3>
                 <div className="space-y-2">
@@ -92,34 +92,34 @@ export default function WorkoutDetail({ workout, onStartWorkout }: WorkoutDetail
                     return (
                       <div
                         key={idx}
-                        className="exercise-item p-3 rounded border border-gray-200"
+                        className="exercise-item p-3 rounded border border-gray-200 dark:border-gray-700 dark:bg-gray-700/50"
                       >
-                        <div className="font-medium text-gray-800 mb-1">
+                        <div className="font-medium text-gray-800 dark:text-white mb-1">
                           {idx + 1}. {exercise.name}
                         </div>
-                        <div className="text-sm text-gray-600 mb-2">
+                        <div className="text-sm text-gray-600 dark:text-gray-300 mb-2">
                           {exercise.description}
                         </div>
                         <div className="flex gap-2 flex-wrap">
                           {ex.reps && (
-                            <span className="text-xs bg-blue-100 text-blue-800 px-2 py-1 rounded font-medium">
+                            <span className="text-xs bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 px-2 py-1 rounded font-medium">
                               {ex.reps} reps
                             </span>
                           )}
                           {ex.duration && (
-                            <span className="text-xs bg-purple-100 text-purple-800 px-2 py-1 rounded font-medium">
+                            <span className="text-xs bg-purple-100 dark:bg-purple-900 text-purple-800 dark:text-purple-200 px-2 py-1 rounded font-medium">
                               {ex.duration}s
                             </span>
                           )}
-                          <span className="text-xs bg-gray-100 text-gray-700 px-2 py-1 rounded">
+                          <span className="text-xs bg-gray-100 dark:bg-gray-600 text-gray-700 dark:text-gray-200 px-2 py-1 rounded">
                             {exercise.category}
                           </span>
-                          <span className="text-xs bg-gray-100 text-gray-700 px-2 py-1 rounded">
+                          <span className="text-xs bg-gray-100 dark:bg-gray-600 text-gray-700 dark:text-gray-200 px-2 py-1 rounded">
                             {exercise.difficulty}
                           </span>
                         </div>
                         {ex.notes && (
-                          <div className="text-xs text-gray-500 mt-2 italic">
+                          <div className="text-xs text-gray-500 dark:text-gray-400 mt-2 italic">
                             Note: {ex.notes}
                           </div>
                         )}

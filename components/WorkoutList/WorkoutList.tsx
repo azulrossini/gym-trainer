@@ -3,8 +3,8 @@
 import { useState } from 'react';
 import { useWorkouts } from '@/hooks/useWorkouts';
 import { Workout } from '@/types';
-import WorkoutCard from './WorkoutCard';
-import WorkoutForm from './WorkoutForm';
+import WorkoutCard from '@/components/WorkoutCard';
+import WorkoutForm from '@/components/WorkoutForm';
 
 export default function WorkoutList() {
   const { workouts, addWorkout, updateWorkout, deleteWorkout } = useWorkouts();
@@ -54,7 +54,7 @@ export default function WorkoutList() {
           placeholder="Search workouts..."
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
-          className="flex-1 px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+          className="flex-1 px-4 py-2 border border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
         />
         <button
           onClick={() => setIsFormOpen(true)}
@@ -66,7 +66,7 @@ export default function WorkoutList() {
 
       {sortedWorkouts.length === 0 ? (
         <div className="text-center py-12">
-          <p className="text-gray-500 text-lg">No workouts found</p>
+          <p className="text-gray-500 dark:text-gray-400 text-lg">No workouts found</p>
         </div>
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">

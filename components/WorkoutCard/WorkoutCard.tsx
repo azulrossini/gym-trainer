@@ -33,12 +33,12 @@ export default function WorkoutCard({ workout, onEdit, onDelete }: WorkoutCardPr
 
   return (
     <div 
-      className="workout-card bg-white rounded-lg shadow-md p-6 border border-gray-200 cursor-pointer"
+      className="workout-card bg-white dark:bg-gray-800 rounded-lg shadow-md p-6 border border-gray-200 dark:border-gray-700 cursor-pointer"
       onClick={handleCardClick}
     >
       <div className="flex justify-between items-start mb-3">
         <div>
-          <h3 className="text-xl font-bold text-gray-800">{workout.name}</h3>
+          <h3 className="text-xl font-bold text-gray-800 dark:text-white">{workout.name}</h3>
           <p className={`text-sm font-semibold mt-1 ${getDurationColor(workout.totalDuration)}`}>
             {workout.totalDuration} minutes
           </p>
@@ -46,13 +46,13 @@ export default function WorkoutCard({ workout, onEdit, onDelete }: WorkoutCardPr
         <div className="flex gap-2">
           <button
             onClick={() => onEdit(workout)}
-            className="text-primary-600 hover:text-primary-800 font-medium text-sm"
+            className="text-primary-600 dark:text-primary-400 hover:text-primary-800 dark:hover:text-primary-300 font-medium text-sm"
           >
             Edit
           </button>
           <button
             onClick={() => onDelete(workout.id)}
-            className="text-red-600 hover:text-red-800 font-medium text-sm"
+            className="text-red-600 dark:text-red-400 hover:text-red-800 dark:hover:text-red-300 font-medium text-sm"
           >
             Delete
           </button>
@@ -60,18 +60,18 @@ export default function WorkoutCard({ workout, onEdit, onDelete }: WorkoutCardPr
       </div>
       
       {workout.description && (
-        <p className="text-gray-600 mb-3">{workout.description}</p>
+        <p className="text-gray-600 dark:text-gray-300 mb-3">{workout.description}</p>
       )}
 
-      <div className="border-t pt-3 mb-4">
-        <h4 className="text-sm font-semibold text-gray-700 mb-2">
+      <div className="border-t border-gray-200 dark:border-gray-700 pt-3 mb-4">
+        <h4 className="text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">
           Routines ({workout.routines.length})
         </h4>
         <ul className="space-y-1">
           {workout.routines.map((routineId) => {
             const routine = getRoutineById(routineId);
             return (
-              <li key={routineId} className="text-sm text-gray-600">
+              <li key={routineId} className="text-sm text-gray-600 dark:text-gray-400">
                 • {routine?.name || 'Unknown'} ({routine?.type})
               </li>
             );

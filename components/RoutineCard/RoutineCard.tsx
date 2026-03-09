@@ -28,24 +28,24 @@ export default function RoutineCard({ routine, onEdit, onDelete }: RoutineCardPr
 
   return (
     <div 
-      className="routine-card bg-white rounded-lg shadow-md p-6 border border-gray-200 cursor-pointer"
+      className="routine-card bg-white dark:bg-gray-800 rounded-lg shadow-md p-6 border border-gray-200 dark:border-gray-700 cursor-pointer"
       onClick={handleCardClick}
     >
       <div className="flex justify-between items-start mb-3">
         <div>
-          <h3 className="text-xl font-bold text-gray-800">{routine.name}</h3>
-          <p className="text-sm text-gray-500 mt-1">{routine.duration} minutes</p>
+          <h3 className="text-xl font-bold text-gray-800 dark:text-white">{routine.name}</h3>
+          <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">{routine.duration} minutes</p>
         </div>
         <div className="flex gap-2">
           <button
             onClick={() => onEdit(routine)}
-            className="text-primary-600 hover:text-primary-800 font-medium text-sm"
+            className="text-primary-600 dark:text-primary-400 hover:text-primary-800 dark:hover:text-primary-300 font-medium text-sm"
           >
             Edit
           </button>
           <button
             onClick={() => onDelete(routine.id)}
-            className="text-red-600 hover:text-red-800 font-medium text-sm"
+            className="text-red-600 dark:text-red-400 hover:text-red-800 dark:hover:text-red-300 font-medium text-sm"
           >
             Delete
           </button>
@@ -53,7 +53,7 @@ export default function RoutineCard({ routine, onEdit, onDelete }: RoutineCardPr
       </div>
       
       {routine.description && (
-        <p className="text-gray-600 mb-3">{routine.description}</p>
+        <p className="text-gray-600 dark:text-gray-300 mb-3">{routine.description}</p>
       )}
       
       <div className="mb-4">
@@ -62,15 +62,15 @@ export default function RoutineCard({ routine, onEdit, onDelete }: RoutineCardPr
         </span>
       </div>
 
-      <div className="border-t pt-3">
-        <h4 className="text-sm font-semibold text-gray-700 mb-2">
+      <div className="border-t border-gray-200 dark:border-gray-700 pt-3">
+        <h4 className="text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">
           Exercises ({routine.exercises.length})
         </h4>
         <ul className="space-y-1">
           {routine.exercises.slice(0, 3).map((ex, idx) => {
             const exercise = getExerciseById(ex.exerciseId);
             return (
-              <li key={idx} className="text-sm text-gray-600">
+              <li key={idx} className="text-sm text-gray-600 dark:text-gray-400">
                 • {exercise?.name || 'Unknown'} 
                 {ex.reps && ` - ${ex.reps} reps`}
                 {ex.duration && ` - ${ex.duration}s`}
@@ -78,7 +78,7 @@ export default function RoutineCard({ routine, onEdit, onDelete }: RoutineCardPr
             );
           })}
           {routine.exercises.length > 3 && (
-            <li className="text-sm text-gray-500 italic">
+            <li className="text-sm text-gray-500 dark:text-gray-400 italic">
               +{routine.exercises.length - 3} more...
             </li>
           )}

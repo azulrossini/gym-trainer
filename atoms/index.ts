@@ -17,3 +17,6 @@ export const isWorkoutModalOpenAtom = atom<boolean>(false);
 export const editingExerciseAtom = atom<Exercise | null>(null);
 export const editingRoutineAtom = atom<Routine | null>(null);
 export const editingWorkoutAtom = atom<Workout | null>(null);
+
+// Theme atom - 'light' | 'dark'
+export const themeAtom = atomWithStorage<'light' | 'dark'>('theme', 'light');
