@@ -8,6 +8,7 @@ import './WorkoutDetail.css';
 
 interface WorkoutDetailProps {
   workout: Workout;
+  onStartWorkout?: () => void;
 }
 
 const routineTypeColors = {
@@ -16,7 +17,7 @@ const routineTypeColors = {
   'Just Minutes': 'bg-success-500',
 };
 
-export default function WorkoutDetail({ workout }: WorkoutDetailProps) {
+export default function WorkoutDetail({ workout, onStartWorkout }: WorkoutDetailProps) {
   const { getRoutineById } = useRoutines();
   const { getExerciseById } = useExercises();
 
@@ -35,13 +36,25 @@ export default function WorkoutDetail({ workout }: WorkoutDetailProps) {
         >
           ← Back to Workouts
         </Link>
-        <h1 className="text-4xl font-bold text-gray-800 mb-2">{workout.name}</h1>
-        {workout.description && (
-          <p className="text-gray-600 text-lg mb-2">{workout.description}</p>
-        )}
-        <p className="text-gray-500">
-          Total Duration: <span className="font-semibold text-success-600">{workout.totalDuration} minutes</span>
-        </p>
+        <div className="flex justify-between items-start mb-4">
+          <div>
+            <h1 className="text-4xl font-bold text-gray-800 mb-2">{workout.name}</h1>
+            {workout.description && (
+              <p className="text-gray-600 text-lg mb-2">{workout.description}</p>
+            )}
+            <p className="text-gray-500">
+              Total Duration: <span className="font-semibold text-success-600">{workout.totalDuration} minutes</span>
+            </p>
+          </div>
+          {onStartWorkout && validRoutines.length > 0 && (
+            <button
+              onClick={onStartWorkout}
+              className="px-8 py-4 bg-gradient-to-r from-success-600 to-success-700 hover:from-success-700 hover:to-success-800 text-white font-bold rounded-lg text-xl shadow-lg hover:shadow-xl transition-all transform hover:scale-105"
+            >
+              🏋️ Start Workout
+            </button>
+          )}
+        </div>
       </div>
 
       {validRoutines.length === 0 ? (

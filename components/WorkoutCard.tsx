@@ -1,6 +1,8 @@
+'use client';
+
 import { Workout } from '@/types';
 import { useRoutines } from '@/hooks/useRoutines';
-import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import './WorkoutCard.css';
 
 interface WorkoutCardProps {
@@ -11,6 +13,7 @@ interface WorkoutCardProps {
 
 export default function WorkoutCard({ workout, onEdit, onDelete }: WorkoutCardProps) {
   const { getRoutineById } = useRoutines();
+  const router = useRouter();
 
   const getDurationColor = (duration: number) => {
     if (duration >= 30 && duration <= 40) {
@@ -19,8 +22,20 @@ export default function WorkoutCard({ workout, onEdit, onDelete }: WorkoutCardPr
     return 'text-gray-600';
   };
 
+  const handleCardClick = (e: React.MouseEvent) => {
+    // Don't trigger if clicking on buttons
+    const target = e.target as HTMLElement;
+    if (target.tagName === 'BUTTON' || target.closest('button')) {
+      return;
+    }
+    router.push(`/workouts/${workout.id}`);
+  };
+
   return (
-    <div className="workout-card bg-white rounded-lg shadow-md p-6 border border-gray-200">
+    <div 
+      className="workout-card bg-white rounded-lg shadow-md p-6 border border-gray-200 cursor-pointer"
+      onClick={handleCardClick}
+    >
       <div className="flex justify-between items-start mb-3">
         <div>
           <h3 className="text-xl font-bold text-gray-800">{workout.name}</h3>
@@ -64,12 +79,15 @@ export default function WorkoutCard({ workout, onEdit, onDelete }: WorkoutCardPr
         </ul>
       </div>
 
-      <Link
-        href={`/workouts/${workout.id}`}
+      <button
+        onClick={(e) => {
+          e.stopPropagation();
+          router.push(`/workouts/${workout.id}`);
+        }}
         className="block w-full text-center px-4 py-2 bg-primary-600 hover:bg-primary-700 text-white font-medium rounded-lg transition-colors"
       >
         View Workout
-      </Link>
+      </button>
     </div>
   );
 }

@@ -25,8 +25,20 @@ const categoryColors = {
 };
 
 export default function ExerciseCard({ exercise, onEdit, onDelete }: ExerciseCardProps) {
+  const handleCardClick = (e: React.MouseEvent) => {
+    // Don't trigger if clicking on buttons
+    const target = e.target as HTMLElement;
+    if (target.tagName === 'BUTTON' || target.closest('button')) {
+      return;
+    }
+    onEdit(exercise);
+  };
+
   return (
-    <div className="exercise-card bg-white rounded-lg shadow-md p-6 border border-gray-200">
+    <div 
+      className="exercise-card bg-white rounded-lg shadow-md p-6 border border-gray-200 cursor-pointer"
+      onClick={handleCardClick}
+    >
       <div className="flex justify-between items-start mb-3">
         <h3 className="text-xl font-bold text-gray-800">{exercise.name}</h3>
         <div className="flex gap-2">

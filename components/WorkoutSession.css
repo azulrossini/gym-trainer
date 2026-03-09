@@ -1,0 +1,45 @@
+.workout-session {
+  min-height: 100vh;
+}
+
+.timer-display {
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.1em;
+}
+
+.routine-indicator {
+  transition: all 0.3s ease;
+}
+
+.routine-indicator.active {
+  transform: scale(1.05);
+}
+
+.pulse-animation {
+  animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.7;
+  }
+}
+
+.exercise-checklist-item {
+  transition: all 0.2s ease;
+}
+
+.exercise-checklist-item:hover {
+  background-color: rgba(0, 0, 0, 0.02);
+}
+
+.control-button {
+  transition: all 0.2s ease;
+}
+
+.control-button:active {
+  transform: scale(0.95);
+}

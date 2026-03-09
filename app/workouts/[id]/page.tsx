@@ -1,14 +1,17 @@
 'use client';
 
+import { useState } from 'react';
 import { useParams } from 'next/navigation';
 import Navigation from '@/components/Navigation';
 import WorkoutDetail from '@/components/WorkoutDetail';
+import WorkoutSession from '@/components/WorkoutSession';
 import { useWorkouts } from '@/hooks/useWorkouts';
 
 export default function WorkoutDetailPage() {
   const params = useParams();
   const { getWorkoutById } = useWorkouts();
   const workout = getWorkoutById(params.id as string);
+  const [isSessionActive, setIsSessionActive] = useState(false);
 
   if (!workout) {
     return (
@@ -24,12 +27,16 @@ export default function WorkoutDetailPage() {
     );
   }
 
+  if (isSessionActive) {
+    return <WorkoutSession workout={workout} onExit={() => setIsSessionActive(false)} />;
+  }
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-primary-50 via-white to-accent-50">
       <Navigation />
       
       <main className="container mx-auto px-4 py-8">
-        <WorkoutDetail workout={workout} />
+        <WorkoutDetail workout={workout} onStartWorkout={() => setIsSessionActive(true)} />
       </main>
     </div>
   );
