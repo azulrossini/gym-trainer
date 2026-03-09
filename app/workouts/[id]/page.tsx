@@ -20,7 +20,7 @@ export default function WorkoutDetailPage() {
         <main className="container mx-auto px-4 py-8">
           <div className="text-center py-12">
             <h1 className="text-3xl font-bold text-gray-800 dark:text-white mb-4">Workout Not Found</h1>
-            <p className="text-gray-600 dark:text-gray-300">The workout you&apos;re looking for doesn&apos;t exist.</p>
+            <p className="text-gray-600 dark:text-gray-300">The workout youre looking for doesnt exist.</p>
           </div>
         </main>
       </div>

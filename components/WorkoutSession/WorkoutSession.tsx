@@ -157,14 +157,14 @@ export default function WorkoutSession({ workout, onExit }: WorkoutSessionProps)
 
   if (allRoutinesComplete || status === 'complete') {
     return (
-      <div className="workout-session min-h-screen bg-gradient-to-br from-success-50 via-white to-accent-50 flex items-center justify-center p-4">
-        <div className="bg-white rounded-2xl shadow-2xl p-12 max-w-2xl w-full text-center">
+      <div className="workout-session min-h-screen bg-gradient-to-br from-success-50 via-white to-accent-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 flex items-center justify-center p-4">
+        <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-2xl p-12 max-w-2xl w-full text-center">
           <div className="text-6xl mb-6">🎉</div>
-          <h1 className="text-4xl font-bold text-gray-800 mb-4">Workout Complete!</h1>
-          <p className="text-xl text-gray-600 mb-2">
+          <h1 className="text-4xl font-bold text-gray-800 dark:text-white mb-4">Workout Complete!</h1>
+          <p className="text-xl text-gray-600 dark:text-gray-300 mb-2">
             {workout.name}
           </p>
-          <p className="text-lg text-gray-500 mb-8">
+          <p className="text-lg text-gray-500 dark:text-gray-400 mb-8">
             Completed {routines.length} routines in {workout.totalDuration} minutes
           </p>
           <button
@@ -189,19 +189,19 @@ export default function WorkoutSession({ workout, onExit }: WorkoutSessionProps)
   };
 
   return (
-    <div className="workout-session min-h-screen bg-gradient-to-br from-gray-50 to-gray-100">
+    <div className="workout-session min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 dark:from-gray-900 dark:to-gray-800">
       <div className="container mx-auto px-4 py-8">
         {/* Header */}
         <div className="flex justify-between items-center mb-6">
           <div>
-            <h1 className="text-3xl font-bold text-gray-800">{workout.name}</h1>
-            <p className="text-gray-600">
+            <h1 className="text-3xl font-bold text-gray-800 dark:text-white">{workout.name}</h1>
+            <p className="text-gray-600 dark:text-gray-300">
               Routine {currentRoutineIndex + 1} of {routines.length}
             </p>
           </div>
           <button
             onClick={onExit}
-            className="px-4 py-2 bg-gray-200 hover:bg-gray-300 text-gray-800 font-medium rounded-lg transition-colors"
+            className="px-4 py-2 bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600 text-gray-800 dark:text-gray-200 font-medium rounded-lg transition-colors"
           >
             Exit
           </button>
@@ -214,10 +214,10 @@ export default function WorkoutSession({ workout, onExit }: WorkoutSessionProps)
               key={routine.id}
               className={`routine-indicator flex-1 h-2 rounded-full transition-all ${
                 index < currentRoutineIndex
-                  ? 'bg-success-500'
+                  ? 'bg-success-500 dark:bg-success-600'
                   : index === currentRoutineIndex
-                  ? 'bg-primary-500'
-                  : 'bg-gray-300'
+                  ? 'bg-primary-500 dark:bg-primary-600'
+                  : 'bg-gray-300 dark:bg-gray-600'
               } ${index === currentRoutineIndex ? 'active' : ''}`}
             />
           ))}
@@ -226,7 +226,7 @@ export default function WorkoutSession({ workout, onExit }: WorkoutSessionProps)
         {/* Main Content */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
           {/* Left: Timer and Controls */}
-          <div className="bg-white rounded-2xl shadow-xl p-8">
+          <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-xl p-8">
             <div className={`bg-gradient-to-r ${routineTypeColors[currentRoutine.type]} text-white rounded-xl p-6 mb-6`}>
               <h2 className="text-3xl font-bold mb-2">{currentRoutine.name}</h2>
               <div className="flex justify-between items-center">
@@ -246,10 +246,10 @@ export default function WorkoutSession({ workout, onExit }: WorkoutSessionProps)
                       max={currentRoutine.duration}
                       value={editTimeValue}
                       onChange={(e) => setEditTimeValue(e.target.value)}
-                      className="w-24 px-4 py-2 text-2xl border border-gray-300 rounded-lg text-center"
+                      className="w-24 px-4 py-2 text-2xl border border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white rounded-lg text-center"
                       autoFocus
                     />
-                    <span className="text-2xl text-gray-600">minutes</span>
+                    <span className="text-2xl text-gray-600 dark:text-gray-300">minutes</span>
                     <button
                       onClick={handleSaveTime}
                       className="px-4 py-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700"
@@ -258,22 +258,22 @@ export default function WorkoutSession({ workout, onExit }: WorkoutSessionProps)
                     </button>
                     <button
                       onClick={() => setIsEditingTime(false)}
-                      className="px-4 py-2 bg-gray-200 text-gray-800 rounded-lg hover:bg-gray-300"
+                      className="px-4 py-2 bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-200 rounded-lg hover:bg-gray-300 dark:hover:bg-gray-600"
                     >
                       Cancel
                     </button>
                   </div>
                 ) : (
                   <div>
-                    <div className={`timer-display text-8xl font-bold ${status === 'running' ? 'text-primary-600' : 'text-gray-700'}`}>
+                    <div className={`timer-display text-8xl font-bold ${status === 'running' ? 'text-primary-600' : 'text-gray-700 dark:text-gray-200'}`}>
                       {formatTime(elapsedSeconds)}
                     </div>
-                    <div className="text-2xl text-gray-500 mt-2">
+                    <div className="text-2xl text-gray-500 dark:text-gray-400 mt-2">
                       / {formatTime(currentRoutineDurationSeconds)}
                     </div>
                     <button
                       onClick={handleEditTime}
-                      className="text-sm text-primary-600 hover:text-primary-800 hover:underline mt-2 cursor-pointer"
+                      className="text-sm text-primary-600 dark:text-primary-400 hover:text-primary-800 dark:hover:text-primary-300 hover:underline mt-2 cursor-pointer"
                     >
                       Edit Time
                     </button>
@@ -282,7 +282,7 @@ export default function WorkoutSession({ workout, onExit }: WorkoutSessionProps)
               </div>
 
               {/* Progress Bar */}
-              <div className="w-full bg-gray-200 rounded-full h-4 mb-6 overflow-hidden">
+              <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-4 mb-6 overflow-hidden">
                 <div
                   className={`h-full bg-gradient-to-r ${routineTypeColors[currentRoutine.type]} transition-all duration-1000 ${
                     status === 'running' ? 'pulse-animation' : ''
@@ -332,7 +332,7 @@ export default function WorkoutSession({ workout, onExit }: WorkoutSessionProps)
                 <button
                   onClick={handlePreviousRoutine}
                   disabled={currentRoutineIndex === 0}
-                  className="px-6 py-2 bg-gray-200 hover:bg-gray-300 text-gray-800 font-medium rounded-lg transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="px-6 py-2 bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600 text-gray-800 dark:text-gray-200 font-medium rounded-lg transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
                 >
                   ← Previous
                 </button>
@@ -347,7 +347,7 @@ export default function WorkoutSession({ workout, onExit }: WorkoutSessionProps)
                 {!isRoutineComplete && currentRoutineIndex < routines.length - 1 && (
                   <button
                     onClick={handleNextRoutine}
-                    className="px-6 py-2 bg-gray-200 hover:bg-gray-300 text-gray-800 font-medium rounded-lg transition-colors"
+                    className="px-6 py-2 bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600 text-gray-800 dark:text-gray-200 font-medium rounded-lg transition-colors"
                   >
                     Skip Routine →
                   </button>
@@ -356,13 +356,13 @@ export default function WorkoutSession({ workout, onExit }: WorkoutSessionProps)
             </div>
 
             {/* Routine Type Info */}
-            <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
-              <h3 className="font-semibold text-blue-900 mb-1">
+            <div className="bg-blue-50 dark:bg-blue-900/30 border border-blue-200 dark:border-blue-800 rounded-lg p-4">
+              <h3 className="font-semibold text-blue-900 dark:text-blue-300 mb-1">
                 {currentRoutine.type === 'EMOM' && '⏱️ EMOM - Every Minute On the Minute'}
                 {currentRoutine.type === 'AMRAP' && '🔁 AMRAP - As Many Rounds As Possible'}
                 {currentRoutine.type === 'Just Minutes' && '⏰ Just Minutes - Timed Workout'}
               </h3>
-              <p className="text-sm text-blue-700">
+              <p className="text-sm text-blue-700 dark:text-blue-400">
                 {currentRoutine.type === 'EMOM' && 'Complete exercises at the start of each minute. You\'ll hear a beep every minute.'}
                 {currentRoutine.type === 'AMRAP' && 'Complete as many rounds of the exercises as possible within the time limit.'}
                 {currentRoutine.type === 'Just Minutes' && 'Work through the exercises at your own pace within the time limit.'}
@@ -371,8 +371,8 @@ export default function WorkoutSession({ workout, onExit }: WorkoutSessionProps)
           </div>
 
           {/* Right: Exercise List */}
-          <div className="bg-white rounded-2xl shadow-xl p-8">
-            <h3 className="text-2xl font-bold text-gray-800 mb-6">
+          <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-xl p-8">
+            <h3 className="text-2xl font-bold text-gray-800 dark:text-white mb-6">
               Exercises ({currentRoutine.exercises.length})
             </h3>
             <div className="space-y-3 max-h-[600px] overflow-y-auto">
@@ -383,30 +383,30 @@ export default function WorkoutSession({ workout, onExit }: WorkoutSessionProps)
                 return (
                   <div
                     key={idx}
-                    className="exercise-checklist-item border border-gray-200 rounded-lg p-4"
+                    className="exercise-checklist-item border border-gray-200 dark:border-gray-700 rounded-lg p-4"
                   >
                     <div className="flex items-start gap-3">
-                      <div className="flex-shrink-0 w-8 h-8 bg-primary-100 text-primary-700 rounded-full flex items-center justify-center font-bold">
+                      <div className="flex-shrink-0 w-8 h-8 bg-primary-100 dark:bg-primary-900/50 text-primary-700 dark:text-primary-300 rounded-full flex items-center justify-center font-bold">
                         {idx + 1}
                       </div>
                       <div className="flex-1">
-                        <h4 className="font-bold text-gray-800 text-lg">{exercise.name}</h4>
-                        <p className="text-sm text-gray-600 mb-2">{exercise.description}</p>
+                        <h4 className="font-bold text-gray-800 dark:text-white text-lg">{exercise.name}</h4>
+                        <p className="text-sm text-gray-600 dark:text-gray-400 mb-2">{exercise.description}</p>
                         <div className="flex gap-2 flex-wrap">
                           {ex.reps && (
-                            <span className="text-sm bg-blue-100 text-blue-800 px-3 py-1 rounded-full font-semibold">
+                            <span className="text-sm bg-blue-100 dark:bg-blue-900/50 text-blue-800 dark:text-blue-300 px-3 py-1 rounded-full font-semibold">
                               {ex.reps} reps
                             </span>
                           )}
                           {ex.duration && (
-                            <span className="text-sm bg-purple-100 text-purple-800 px-3 py-1 rounded-full font-semibold">
+                            <span className="text-sm bg-purple-100 dark:bg-purple-900/50 text-purple-800 dark:text-purple-300 px-3 py-1 rounded-full font-semibold">
                               {ex.duration}s
                             </span>
                           )}
-                          <span className="text-sm bg-gray-100 text-gray-700 px-3 py-1 rounded-full">
+                          <span className="text-sm bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 px-3 py-1 rounded-full">
                             {exercise.category}
                           </span>
-                          <span className="text-sm bg-gray-100 text-gray-700 px-3 py-1 rounded-full">
+                          <span className="text-sm bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 px-3 py-1 rounded-full">
                             {exercise.difficulty}
                           </span>
                         </div>
